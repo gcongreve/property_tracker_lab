@@ -46,7 +46,7 @@ class PropertyTracker
         db.close()
       end
 
-      def delete_all()
+      def PropertyTracker.delete_all()
         db = PG.connect({dbname: 'property_database', host: 'localhost'})
         sql = "DELETE FROM property_tracker;"
         db.prepare("delete_all", sql)
@@ -54,7 +54,7 @@ class PropertyTracker
         db.close()
       end
 
-      def find(id_number)
+      def PropertyTracker.find(id_number)
         db = PG.connect({dbname: 'property_database', host: 'localhost'})
         sql = "SELECT * FROM property_tracker WHERE id = #{id_number};"
         db.prepare("find", sql)
@@ -63,13 +63,5 @@ class PropertyTracker
         puts house_array[0]['address']
       end
 
-      def find_by_address(address)
-        db = PG.connect({dbname: 'property_database', host: 'localhost'})
-        sql = "SELECT * FROM property_tracker WHERE address = #{address};"
-        db.prepare("find_address", sql)
-        house_array = db.exec_prepared("find_address")
-        db.close()
-        puts house_array[0]['id']
-      end
 
     end
