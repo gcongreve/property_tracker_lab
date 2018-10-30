@@ -68,7 +68,9 @@ class PropertyTracker
         db.prepare("find_address", sql)
         house_array = db.exec_prepared("find_address")
         db.close()
-        return house_array[0]    
+        house_hash = house_array[0]
+        found_house = PropertyTracker.new(house_hash)
+        return found_house
       end
 
     end

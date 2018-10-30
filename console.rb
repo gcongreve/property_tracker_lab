@@ -20,5 +20,5 @@ p found_by_id_house
 found_by_address_house =  PropertyTracker.find_by_address("'7 Main St.'")
 p found_by_address_house
 
-test_address_house =  PropertyTracker.find_by_address("'7 Fake St.'")
-p test_address_house
+# test_address_house =  PropertyTracker.find_by_address("'7 Fake St.'")
+# p test_address_house
