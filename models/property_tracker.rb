@@ -19,32 +19,31 @@ class PropertyTracker
     db = PG.connect({dbname: 'property_database', host: 'localhost'})
     sql = "INSERT INTO property_tracker
     (address,
-      value,
-      year_built,
-      buy_let)
-      VALUES
-      ($1, $2, $3, $4) RETURNING *;"
-
-      values = [@address, @value, @year_built, @buy_let]
-      db.prepare("save", sql)
-      array_of_hashes = db.exec_prepared("save", values)
-      @id = array_of_hashes[0]['id'].to_i
-      db.close()
-    end
+    value,
+    year_built,
+    buy_let)
+    VALUES
+    ($1, $2, $3, $4) RETURNING *;"
+    values = [@address, @value, @year_built, @buy_let]
+    db.prepare("save", sql)
+    array_of_hashes = db.exec_prepared("save", values)
+    @id = array_of_hashes[0]['id'].to_i
+    db.close()
+  end
 
     def update()
       db = PG.connect({dbname: 'property_database', host: 'localhost'})
       sql = "UPDATE property_tracker
       SET
       (address,
-        value,
-        year_built,
-        buy_let) = ($1, $2, $3, $4) WHERE id = $5"
-        values = [@address, @value, @year_built, @buy_let, @id]
-        db.prepare("update", sql)
-        db.exec_prepared("update", values)
-        db.close()
-      end
+      value,
+      year_built,
+      buy_let) = ($1, $2, $3, $4) WHERE id = $5"
+      values = [@address, @value, @year_built, @buy_let, @id]
+      db.prepare("update", sql)
+      db.exec_prepared("update", values)
+      db.close()
+    end
 
       def PropertyTracker.delete_all()
         db = PG.connect({dbname: 'property_database', host: 'localhost'})
@@ -60,7 +59,7 @@ class PropertyTracker
         db.prepare("find", sql)
         house_array = db.exec_prepared("find")
         db.close()
-        return house_array[0]['address']
+        return house_array[0]
       end
 
       def PropertyTracker.find_by_address(address)
@@ -69,7 +68,7 @@ class PropertyTracker
         db.prepare("find_address", sql)
         house_array = db.exec_prepared("find_address")
         db.close()
-        return house_array[0]['id']
+        return house_array[0]    
       end
 
     end
