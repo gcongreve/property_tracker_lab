@@ -60,8 +60,16 @@ class PropertyTracker
         db.prepare("find", sql)
         house_array = db.exec_prepared("find")
         db.close()
-        puts house_array[0]['address']
+        return house_array[0]['address']
       end
 
+      def PropertyTracker.find_by_address(address)
+        db = PG.connect({dbname: 'property_database', host: 'localhost'})
+        sql = "SELECT * FROM property_tracker WHERE address = #{address};"
+        db.prepare("find_address", sql)
+        house_array = db.exec_prepared("find_address")
+        db.close()
+        return house_array[0]['id']
+      end
 
     end

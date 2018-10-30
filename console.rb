@@ -11,6 +11,8 @@ property1.update
 #property1.delete_all
 property2.save
 
-PropertyTracker.find('15')
+p PropertyTracker.find('54')
 
 #PropertyTracker.delete_all
+
+p PropertyTracker.find_by_address("'2 Main St.'")
