@@ -11,3 +11,5 @@ property1.update
 property1.save
 
 property1.find('15')
+
+property1.find_by_address('1 Main St.')
