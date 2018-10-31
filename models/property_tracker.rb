@@ -23,7 +23,7 @@ class PropertyTracker
     year_built,
     buy_let)
     VALUES
-    ($1, $2, $3, $4) RETURNING *;"
+    ($1, $2, $3, $4) RETURNING *;" #should only return id
     values = [@address, @value, @year_built, @buy_let]
     db.prepare("save", sql)
     array_of_hashes = db.exec_prepared("save", values)
@@ -62,15 +62,30 @@ class PropertyTracker
         return house_array[0]
       end
 
+      # def PropertyTracker.find_by_address(address)
+      #   db = PG.connect({dbname: 'property_database', host: 'localhost'})
+      #   sql = "SELECT * FROM property_tracker WHERE address = $1;"
+      #   vaules = (address)
+      #   db.prepare("find_address", sql)
+      #   house_array = db.exec_prepared("find_address", address)
+      #   db.close()
+      #   return nil if house_array.length == 0
+      #   house_hash = house_array[0]
+      #   found_house = PropertyTracker.new(house_hash)
+      #   return found_house
+      # end
+
       def PropertyTracker.find_by_address(address)
         db = PG.connect({dbname: 'property_database', host: 'localhost'})
-        sql = "SELECT * FROM property_tracker WHERE address = #{address};"
-        db.prepare("find_address", sql)
-        house_array = db.exec_prepared("find_address")
+        sql = "SELECT * from property_tracker WHERE address = $1"
+        values = [address]
+        db.prepare("find_by_address", sql)
+        results_array = db.exec_prepared("find_by_address", values)
         db.close()
-        house_hash = house_array[0]
-        found_house = PropertyTracker.new(house_hash)
-        return found_house
+        property_hash = results_array[0]
+        found_property = Property.new(property_hash)
+        return found_property
+
       end
 
     end
