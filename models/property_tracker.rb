@@ -63,19 +63,6 @@ class PropertyTracker
         return house_array[0]
       end
 
-      # def PropertyTracker.find_by_address(address)
-      #   db = PG.connect({dbname: 'property_database', host: 'localhost'})
-      #   sql = "SELECT * FROM property_tracker WHERE address = $1;"
-      #   vaules = (address)
-      #   db.prepare("find_address", sql)
-      #   house_array = db.exec_prepared("find_address", address)
-      #   db.close()
-      #   return nil if house_array.length == 0
-      #   house_hash = house_array[0]
-      #   found_house = PropertyTracker.new(house_hash)
-      #   return found_house
-      # end
-
       def PropertyTracker.find_by_address(address)
         db = PG.connect({dbname: 'property_database', host: 'localhost'})
         sql = "SELECT * from property_tracker WHERE address = $1"
@@ -87,7 +74,6 @@ class PropertyTracker
         property_hash = results_array[0]
         found_property = Property.new(property_hash)
         return found_property
-
       end
 
     end
